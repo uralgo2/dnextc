@@ -1,0 +1,16 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/dnc
+dnc.so
+dnc.dylib
+dnc.dll
+dnc.a
+dnc.lib
+dnc-test-*
+*.exe
+*.pdb
+*.o
+*.obj
+*.lst

@@ -1,0 +1,128 @@
+import std.generic.containers
+import std.generic.types
+import std.numeric
+import std.math as math
+
+use std.numeric
+use std.generic.containers
+
+enum TokenType {
+    UnaryOperator,
+    UnaryFunction,
+    BinaryOperator,
+    Number
+}
+
+enum NodeType {
+    Number,
+    Function,
+    BinaryExpression,
+    UnaryExpression
+}
+
+struct token {
+    type: TokenType
+    value: Algebraic<number, string>
+}
+
+class Node {
+    type: NodeType
+}
+
+class Number extends Node {
+    value: number
+}
+
+class Function extends Node {
+    expr: Node
+    name: string
+} 
+
+class BinaryExpression extends Node {
+    lhs, rhs: Node
+    operator: string
+}
+
+class UnaryExpression extends Node {
+    expr: Node
+    operator: string
+}
+
+fn tokenize(input: string): token[] {
+    // todo tokenize input
+}
+
+fn parse(tokens: token[]): Node {
+    let stack = new Stack<token>()
+    let output = new List<token>()
+    
+    // implement sort station algorithm
+    // todo parse tokens
+}
+
+fn eval(node: Node): number {
+    return match (node.type) {
+        NodeType.Number => (node as NumberExpression).value
+        NodeType.Function => {
+            let function = node as FunctionExpression
+            let expr = eval(function.expr)
+
+            return switch (function.name) {
+                case "abs":
+                    return math.abs(expr)
+                case "sin":
+                    return math.sin(expr)
+                case "cos":
+                    return math.cos(expr)
+                case "tg":
+                    return math.tg(expr)
+                case "ctg":
+                    return math.ctg(expr)
+                case "sec":
+                    return math.sec(expr)
+                case "cosec":
+                    return math.cosec(expr)
+                
+                default:
+                    throw new Exception("Not supported function: %s" %% function.name)
+            }
+        }
+        NodeType.UnaryExpression => {
+            let unaryExpression = node as BinaryExpression
+            let expr = eval(unaryExpression.expr)
+
+            return switch (unaryExpression.operator) {
+                case "+":
+                    return expr
+                case "-":
+                    return -expr
+                default:
+                    throw new Exception("Not supported operator: %s" %% unaryExpression.operator)
+            }
+        }
+        NodeType.BinaryExpression => {
+            let binExpression = node as BinaryExpression
+            let lhs = eval(binExpression.lhs)
+            let rhs = eval(binExpression.rhs)
+
+            return switch (binExpression.operator) {
+                case "+":
+                    return lhs + rhs
+                case "-":
+                    return lhs - rhs
+                case "^":
+                    return lhs ** rhs
+                case "*":
+                    return lhs * rhs
+                case "/":
+                    return lhs / rhs
+                case "%":
+                    return lhs % rhs
+                default:
+                    throw new Exception("Not supported operator: %s" %% binExpression.operator)
+            }
+        }
+    }
+}
+
+export tokenize, parse, eval

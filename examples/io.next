@@ -1,0 +1,20 @@
+import std.io
+import calc
+
+use std.io
+
+println("Hello this is a example lib that use the std.io library.")
+
+let name = readln("Write your name: ")
+
+println("Hello, %s!" %% name)
+
+while(true) {
+    let input = readln("> ")
+
+    let tokens = calc.tokenize(input)
+    let tree = calc.parse(tokens)
+    let result = calc.eval(tree)
+
+    println("{} = {}", input, result)
+}

@@ -1,0 +1,7 @@
+name "dnc"
+description "A compiler for Next programming language written in D."
+authors "uralg"
+copyright "Copyright © 2023, uralg"
+license "proprietary"
+
+

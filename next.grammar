@@ -1,0 +1,41 @@
+program:
+    statement*
+    ;
+
+statement:
+    returnStatement
+    | expressionStatement
+    | importStatement
+    | exportStatement
+    | useStatement
+    | aliasStatement
+    | forStatement
+    | forInStatement
+    | branchStatement
+    ;
+
+returnStatement:
+    "return" expr=expression?
+    ;
+
+expressionStatement:
+    expression
+    ;
+
+importStatement:
+    "import" name=moduleName ("as" alias=name)
+    ;
+
+exportStatement:
+    "export" name=name ("as" alias=name)
+    ;
+
+aliasStatement:
+    "alias" aliasingName=name "=" alias=name
+    ;
+
+forStatement:
+    "for" "(" "const"? id "in" expression ")" 
+        (statement | block)
+    ;
+    
